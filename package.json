@@ -1,0 +1,28 @@
+{
+  "name": "setlistify",
+  "version": "1.0.0",
+  "description": "Create a Spotify Playlist of an artist's set",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevenlay/setlistify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stevenlay/setlistify/issues"
+  },
+  "homepage": "https://github.com/stevenlay/setlistify#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "passport": "^0.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
