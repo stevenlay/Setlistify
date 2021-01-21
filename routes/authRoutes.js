@@ -25,8 +25,4 @@ module.exports = (app) => {
     req.logout();
     res.redirect("/");
   });
-
-  app.get("/api/test", (req, res) => {
-    res.send("Hello World");
-  });
 };

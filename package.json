@@ -4,7 +4,8 @@
   "description": "Create a Spotify Playlist of an artist's set",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
+    "server": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,8 +20,11 @@
   },
   "homepage": "https://github.com/stevenlay/setlistify#readme",
   "dependencies": {
+    "cookie-session": "^1.4.0",
     "express": "^4.17.1",
-    "passport": "^0.4.1"
+    "mongoose": "^5.11.13",
+    "passport": "^0.4.1",
+    "passport-spotify": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
