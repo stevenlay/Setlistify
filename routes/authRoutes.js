@@ -9,14 +9,6 @@ module.exports = (app) => {
     })
   );
 
-  app.get(
-    "/auth/spotify/callback",
-    passport.authenticate("spotify", { failureRedirect: "/login" }),
-    (req, res) => {
-      res.redirect("/");
-    }
-  );
-
   app.get("/api/current_user", (req, res) => {
     res.send(req.user);
   });
