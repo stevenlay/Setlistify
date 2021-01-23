@@ -1,4 +1,5 @@
 import React from "react";
+import { Navbar, Button, Alignment } from "@blueprintjs/core";
 import { connect } from "react-redux";
 import Payments from "./Payments";
 import CreditCounter from "./CreditCounter";
@@ -10,10 +11,8 @@ export const Header = ({ auth }) => {
         return;
       case false:
         return (
-          <a href="/auth/spotify">
-            <button className="bp3-button bp3-intent-success">
-              Login with Spotify
-            </button>
+          <a href="/auth/spotify" key="login">
+            <Button intent="success" text="Login with Spotify" />
           </a>
         );
       default:
@@ -21,20 +20,21 @@ export const Header = ({ auth }) => {
           <CreditCounter credits={auth.credits} key="creditCounter" />,
           <Payments key="payments" />,
           <a href="/api/logout" key="logout">
-            <button className="bp3-button bp3-minimal">Logout</button>
+            <Button minimal={true} text="Logout" />
           </a>,
         ];
     }
   };
   return (
-    <nav className="bp3-navbar .modifier">
-      <div className="bp3-navbar-group bp3-align-left">
-        <div className="bp3-navbar-heading">
-          <div className="logo">Setlistify</div>
-        </div>
-      </div>
-      <div className="bp3-navbar-group bp3-align-right">{renderContent()}</div>
-    </nav>
+    <Navbar>
+      <Navbar.Group align={Alignment.LEFT}>
+        <Navbar.Heading>Setlistify</Navbar.Heading>
+      </Navbar.Group>
+      <Navbar.Group align={Alignment.RIGHT}>
+        <Navbar.Divider />
+        {renderContent()}
+      </Navbar.Group>
+    </Navbar>
   );
 };
 

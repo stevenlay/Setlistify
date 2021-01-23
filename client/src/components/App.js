@@ -5,23 +5,21 @@ import * as actions from "../actions";
 import Header from "./Header";
 import Landing from "./Landing";
 
-class App extends React.Component {
-  componentDidMount() {
-    this.props.fetchUser();
-  }
+const App = ({ fetchUser }) => {
+  React.useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
 
-  render() {
-    return (
-      <div className="container">
-        <BrowserRouter>
-          <div>
-            <Header />
-            <Route exact path="/" component={Landing} />
-          </div>
-        </BrowserRouter>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="container">
+      <BrowserRouter>
+        <div>
+          <Header />
+          <Route exact path="/" component={Landing} />
+        </div>
+      </BrowserRouter>
+    </div>
+  );
+};
 
 export default connect(null, actions)(App);

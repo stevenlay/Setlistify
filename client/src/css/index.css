@@ -1,0 +1,93 @@
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+
+a:-webkit-any-link {
+  text-decoration: none;
+}
+
+.artistDetails {
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.alert {
+  font-weight: bold;
+}
+
+.card {
+  background-color: "black";
+}
+
+.card-container {
+  max-width: 1000px;
+  padding: 20px;
+  text-decoration: none;
+}
+
+.grid {
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.loader-card-container {
+  min-height: 500px;
+}
+
+.result-card-container {
+  padding-bottom: 20px;
+}
+
+.search-card-container {
+  margin: auto;
+  text-align: center;
+  max-width: 400px;
+  min-height: 200px;
+  padding-top: 100px;
+}
+
+.setlist-card-result-header {
+  text-align: center;
+}
+
+.songs-container {
+  text-align: left;
+}
+
+.header {
+  text-align: center;
+}
+
+.rowC {
+  display: flex;
+  flex-direction: row;
+}
+
+.warning {
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}
+
+.success {
+  color: green;
+  text-align: center;
+  font-weight: bold;
+}
+
+.logo {
+  font-weight: bold;
+}
