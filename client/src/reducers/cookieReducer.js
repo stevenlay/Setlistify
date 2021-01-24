@@ -1,6 +1,6 @@
 import { CHECK_COOKIE } from "../actions/types";
 
-export default (state = null, action) => {
+const cookieReducer = (state = null, action) => {
   switch (action.type) {
     case CHECK_COOKIE:
       return action.payload || false;
@@ -9,3 +9,5 @@ export default (state = null, action) => {
       return state;
   }
 };
+
+export default cookieReducer;

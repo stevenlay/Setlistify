@@ -1,6 +1,6 @@
 import { FETCH_ARTIST_DETAILS } from "../actions/types";
 
-export default (state = false, action) => {
+const searchDetailsReducer = (state = false, action) => {
   switch (action.type) {
     case FETCH_ARTIST_DETAILS:
       return action.payload || false;
@@ -9,3 +9,5 @@ export default (state = false, action) => {
       return state;
   }
 };
+
+export default searchDetailsReducer;

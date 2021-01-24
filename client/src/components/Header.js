@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Navbar, Button, Alignment } from "@blueprintjs/core";
 import { connect } from "react-redux";
 import Payments from "./Payments";
@@ -17,10 +18,10 @@ export const Header = ({ auth }) => {
         );
       default:
         return [
-          <CreditCounter credits={auth.credits} key="creditCounter" />,
           <Payments key="payments" />,
+          <CreditCounter credits={auth.credits} key="creditCounter" />,
           <a href="/api/logout" key="logout">
-            <Button minimal={true} text="Logout" />
+            <Button minimal="true" text="Logout" />
           </a>,
         ];
     }
@@ -28,7 +29,11 @@ export const Header = ({ auth }) => {
   return (
     <Navbar>
       <Navbar.Group align={Alignment.LEFT}>
-        <Navbar.Heading>Setlistify</Navbar.Heading>
+        <Navbar.Heading>
+          <Link to={"/"} className="logo">
+            Setlistify
+          </Link>
+        </Navbar.Heading>
       </Navbar.Group>
       <Navbar.Group align={Alignment.RIGHT}>
         <Navbar.Divider />
