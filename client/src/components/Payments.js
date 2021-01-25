@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 
 const Payments = ({ handleToken }) => {
-  console.log(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
   return (
     <StripeCheckout
       name="Setlistify"
