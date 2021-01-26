@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Card, Elevation } from "@blueprintjs/core";
 
-class ArtistDetails extends React.Component {
-  renderContent() {
-    if (!this.props.auth) {
+const ArtistDetails = ({ auth, searchDetails }) => {
+  const renderContent = () => {
+    if (!auth) {
       return (
         <div className="card-container">
           <Card interactive={false} elevation={Elevation.ONE}>
@@ -16,7 +16,7 @@ class ArtistDetails extends React.Component {
       );
     }
 
-    switch (this.props.searchDetails) {
+    switch (searchDetails) {
       case false:
         return (
           <div className="card-container">
@@ -28,7 +28,7 @@ class ArtistDetails extends React.Component {
           </div>
         );
       default:
-        const artistDetails = this.props.searchDetails.artist;
+        const artistDetails = searchDetails.artist;
         return (
           <div className="card-container">
             <a href={artistDetails.link}>
@@ -51,12 +51,10 @@ class ArtistDetails extends React.Component {
           </div>
         );
     }
-  }
+  };
 
-  render() {
-    return this.renderContent();
-  }
-}
+  return renderContent();
+};
 
 const mapStateToProps = ({ auth, searchDetails, expired }) => {
   return { auth, searchDetails, expired };

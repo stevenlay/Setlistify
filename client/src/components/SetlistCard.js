@@ -1,35 +1,34 @@
 import React from "react";
 import { Card } from "@blueprintjs/core";
 
-const SetlistCard = (props) => {
+const SetlistCard = ({ details, setlist }) => {
   return (
     <div className="result-card-container">
       <Card>
         <div className="setlist-card-result-header">
-          {props.details && (
+          {details && (
             <h2>
-              {props.setlist.artist}'s{" "}
-              {props.setlist.tour ? props.setlist.tour : "Tour Name N/A"}
+              {setlist.artist}'s {setlist.tour ? setlist.tour : "Tour Name N/A"}
             </h2>
           )}
-          <h5>{props.setlist.date}</h5>
+          <h5>{setlist.date}</h5>
           <h5>
-            {props.setlist.venue} - {props.setlist.city}
+            {setlist.venue} - {setlist.city}
           </h5>
         </div>
 
         <h4>Songs</h4>
         <ol className="songs-container">
-          {props.setlist.songs &&
-            props.setlist.songs.map((song) => {
+          {setlist.songs &&
+            setlist.songs.map((song) => {
               return <li key={song.name}>{song.name}</li>;
             })}
         </ol>
-        {!props.setlist.songs && <p>No songs found</p>}
-        {props.setlist.encore && <h4>Encore</h4>}
+        {!setlist.songs && <p>No songs found</p>}
+        {setlist.encore && <h4>Encore</h4>}
         <ol className="songs-container">
-          {props.setlist.encore &&
-            props.setlist.encore.map((song) => {
+          {setlist.encore &&
+            setlist.encore.map((song) => {
               return <li key={song.name}>{song.name}</li>;
             })}
         </ol>
