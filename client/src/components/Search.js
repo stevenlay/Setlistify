@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { FormGroup, Card, Elevation } from "@blueprintjs/core";
+import { DebounceInput } from "react-debounce-input";
 import * as actions from "../actions";
 
 class Search extends React.Component {
@@ -19,9 +21,27 @@ class Search extends React.Component {
   render() {
     return (
       <div className="card-container">
-        <form>
-          <input></input>
-        </form>
+        <Card interactive={false} elevation={Elevation.ONE}>
+          <FormGroup
+            helperText=""
+            label="Search for an artist:"
+            labelFor="text-input"
+            labelInfo="(required)"
+          >
+            <div className="bp3-input-group .modifier">
+              <span className="bp3-icon bp3-icon-search"></span>
+              <DebounceInput
+                className="bp3-input"
+                type="search"
+                placeholder="Ed Sheeran"
+                dir="auto"
+                minLength={2}
+                onChange={this.handleChange}
+                debounceTimeout={-1}
+              />
+            </div>
+          </FormGroup>
+        </Card>
       </div>
     );
   }

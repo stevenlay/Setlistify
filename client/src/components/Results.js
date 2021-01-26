@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Card, Elevation } from "@blueprintjs/core";
 import SetlistCard from "./SetlistCard";
 import ImportModal from "./ImportModal";
 
@@ -98,7 +99,13 @@ class Results extends React.Component {
   }
 
   render() {
-    return <div className="card-container">{this.renderContent()}</div>;
+    return (
+      <div className="card-container">
+        <Card interactive={false} elevation={Elevation.ONE}>
+          {this.renderContent()}
+        </Card>
+      </div>
+    );
   }
 }
 

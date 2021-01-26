@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Card, Elevation } from "@blueprintjs/core";
 
 class ArtistDetails extends React.Component {
   //   mapGenres = genres => {
@@ -11,9 +12,11 @@ class ArtistDetails extends React.Component {
     if (!this.props.auth) {
       return (
         <div className="card-container">
-          <p className="alert">
-            Login to Spotify to see artist details and import setlists!
-          </p>
+          <Card interactive={false} elevation={Elevation.ONE}>
+            <p className="alert">
+              Login to Spotify to see artist details and import setlists!
+            </p>
+          </Card>
         </div>
       );
     }
@@ -22,9 +25,11 @@ class ArtistDetails extends React.Component {
       case false:
         return (
           <div className="card-container">
-            <p className="alert">
-              Search an artist and see the details of the artist here!
-            </p>
+            <Card interactive={false} elevation={Elevation.ONE}>
+              <p className="alert">
+                Search an artist and see the details of the artist here!
+              </p>
+            </Card>
           </div>
         );
       default:
@@ -32,19 +37,21 @@ class ArtistDetails extends React.Component {
         return (
           <div className="card-container">
             <a href={artistDetails.link}>
-              <div key="header-div">
-                <h1 key="header" className="header">
-                  {artistDetails.name}
-                </h1>
-                <img
-                  key="img"
-                  src={artistDetails.image}
-                  alt={artistDetails.name}
-                />{" "}
-              </div>
-              <h3 key="followers" className="artistDetails">
-                Followers on Spotify: {artistDetails.followers}
-              </h3>
+              <Card interactive={true} elevation={Elevation.TWO}>
+                <div key="header-div">
+                  <h1 key="header" className="header">
+                    {artistDetails.name}
+                  </h1>
+                  <img
+                    key="img"
+                    src={artistDetails.image}
+                    alt={artistDetails.name}
+                  />{" "}
+                </div>
+                <h3 key="followers" className="artistDetails">
+                  Followers on Spotify: {artistDetails.followers}
+                </h3>
+              </Card>
             </a>
           </div>
         );
