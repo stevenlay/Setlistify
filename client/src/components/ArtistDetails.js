@@ -3,11 +3,6 @@ import { connect } from "react-redux";
 import { Card, Elevation } from "@blueprintjs/core";
 
 class ArtistDetails extends React.Component {
-  //   mapGenres = genres => {
-  //     return genres.map(genre => {
-  //       return;
-  //     });
-  //   };
   renderContent() {
     if (!this.props.auth) {
       return (

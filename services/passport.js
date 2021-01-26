@@ -23,7 +23,6 @@ passport.use(
       callbackURL: "/auth/spotify/callback",
     },
     async (accessToken, refreshToken, expires_in, profile, done) => {
-      console.log(accessToken);
       const filter = { spotifyId: profile.id };
       const update = { accessToken };
       let existingUser = await User.findOneAndUpdate(filter, update);
