@@ -65,7 +65,7 @@ class ImportModal extends Component {
     return (
       <>
         {" "}
-        <p>
+        <div>
           Would you like to import the setlist for{" "}
           {this.props.searchDetails.artist.name}?
           {!this.canImportSetlist() && (
@@ -78,11 +78,11 @@ class ImportModal extends Component {
               You have enough credits to import this setlist.
             </p>
           )}
-        </p>
-        <p>
+        </div>
+        <div>
           <div>
             <h1 className="header">Most recent sets: </h1>
-            <p>
+            <div>
               {this.renderSetlists(
                 this.props.search.nonEmptySetlists.slice(0, 2)
               )}
@@ -95,10 +95,10 @@ class ImportModal extends Component {
                   </p>
                 </div>
               )}
-            </p>
+            </div>
           </div>
-        </p>
-        <p>
+        </div>
+        <div>
           <p color="black" onClick={this.close}>
             No
           </p>
@@ -119,7 +119,7 @@ class ImportModal extends Component {
               onClick={this.close}
             />
           )}
-        </p>
+        </div>
       </>
     );
   };
@@ -137,7 +137,7 @@ class ImportModal extends Component {
               dimmer={dimmer}
               open={open}
               onClose={this.close}
-              centered={false}
+              centered="false"
             >
               {done &&
                 success &&

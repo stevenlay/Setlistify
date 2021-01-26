@@ -30,8 +30,6 @@
     "mongoose": "^5.11.13",
     "passport": "^0.4.1",
     "passport-spotify": "^2.0.0",
-    "react-stripe-checkout": "^2.6.3",
-    "redux-thunk": "^2.3.0",
     "stripe": "^8.132.0"
   },
   "devDependencies": {

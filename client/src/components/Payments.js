@@ -13,7 +13,7 @@ const Payments = ({ handleToken }) => {
       token={(token) => handleToken(token)}
       stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}
     >
-      <Button minimial={true} intent="success" text="Buy Credits" />
+      <Button minimial="true" intent="success" text="Buy Credits" />
     </StripeCheckout>
   );
 };

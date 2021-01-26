@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Payments from "./Payments";
 import CreditCounter from "./CreditCounter";
 
-export const Header = ({ auth }) => {
+const Header = ({ auth }) => {
   const renderContent = () => {
     switch (auth) {
       case null:

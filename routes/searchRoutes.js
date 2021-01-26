@@ -69,7 +69,6 @@ module.exports = (app) => {
           err = error.message;
         }
       });
-
     const artistDetails = util.formatArtistDetails(
       artistRes.data.artists.items[0]
     );
