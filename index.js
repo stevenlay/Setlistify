@@ -28,7 +28,6 @@ app.use(passport.session());
 
 require("./routes/authRoutes")(app);
 require("./routes/billingRoutes")(app);
-require("./routes/setlistRoutes")(app);
 require("./routes/searchRoutes")(app);
 require("./routes/importRoutes")(app);
 
