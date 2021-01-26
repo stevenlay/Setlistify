@@ -5,13 +5,13 @@ import ArtistDetails from "./ArtistDetails";
 
 const Landing = () => {
   return (
-    <React.Fragment>
+    <>
       <div className="rowC">
         <Search />
         <Results />
         <ArtistDetails />
       </div>
-    </React.Fragment>
+    </>
   );
 };
 export default Landing;

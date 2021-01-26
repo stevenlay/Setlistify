@@ -6,76 +6,76 @@ import ImportModal from "./ImportModal";
 
 import * as actions from "../actions";
 
-class Results extends React.Component {
+const Results = (props) => {
   //TODO:
 
-  renderModalContent() {
+  const renderModalContent = () => {
     return "Are you sure you would like to import the Setlist?";
-  }
+  };
 
-  renderActions() {
+  const renderActions = () => {
     return (
-      <React.Fragment>
-        <button onClick={this.importSet} className="ui button primary">
+      <>
+        <button onClick={() => importSet} className="ui button primary">
           Delete
         </button>
-      </React.Fragment>
+      </>
     );
-  }
+  };
 
-  renderImportModal() {
+  const renderImportModal = () => {
     return <ImportModal />;
-  }
+  };
 
-  importSet = async () => {
-    await this.props.importSetlist({
-      setlists: this.props.search.setlists.slice(0, 2),
-      artistName: this.props.searchDetails.artist.name,
-      artistSpotifyId: this.props.searchDetails.artist.id,
+  const importSet = async () => {
+    await props.importSetlist({
+      setlists: props.search.setlists.slice(0, 2),
+      artistName: props.searchDetails.artist.name,
+      artistSpotifyId: props.searchDetails.artist.id,
     });
   };
 
-  canImportSetlist = () => {
+  const canImportSetlist = () => {
     return (
-      this.props.auth &&
-      this.props.search &&
-      this.props.search.setlists &&
-      this.props.search.numArtists === 1 &&
-      this.props.searchDetails
+      props.auth &&
+      props.search &&
+      props.search.setlists &&
+      props.search.numArtists === 1 &&
+      props.searchDetails
     );
   };
 
-  renderImportButton = () => {
-    return this.canImportSetlist() && <ImportModal />;
+  const renderImportButton = () => {
+    return canImportSetlist() && <ImportModal />;
   };
 
-  renderGeneralWarning = (message) => {
+  const renderGeneralWarning = (message) => {
     return <p className="warning">{message}</p>;
   };
 
-  renderWarning = () => {
-    if (this.npsearch && this.props.search.numArtists > 1) {
+  const renderWarning = () => {
+    if (props.search && props.search.numArtists > 1) {
       return "Too many different artists found from search. Please be more specific.";
     }
     return null;
   };
 
-  renderSetlists = () => {
-    if (!this.props.search) {
-      return this.renderGeneralWarning("No search found");
+  const renderSetlists = () => {
+    if (!props.search) {
+      return renderGeneralWarning("No search found");
     }
 
-    if (this.props.search.error === 404) {
-      return this.renderGeneralWarning("No artist found");
+    if (props.search.error === 404) {
+      return renderGeneralWarning("No artist found");
     }
 
-    return this.props.search.setlists.map((setlist, index) => (
+    return props.search.setlists.map((setlist, index) => (
       <SetlistCard key={index} setlist={setlist} details={true} />
     ));
   };
 
-  renderContent() {
-    switch (this.props.search) {
+  const renderContent = () => {
+    switch (props.search) {
       case false:
         return (
           <p className="alert">Search an artist and see the results here!</p>
@@ -86,28 +86,26 @@ class Results extends React.Component {
             Results
           </h1>,
           <div className="header" key="import">
-            {this.renderImportButton()}
+            {renderImportButton()}
           </div>,
           <h4 className="warning" key="alert">
-            {this.renderWarning()}
+            {renderWarning()}
           </h4>,
           <div key="setlist" className="setlist-card-container">
-            {this.renderSetlists()}
+            {renderSetlists()}
           </div>,
         ];
     }
-  }
+  };
 
-  render() {
-    return (
-      <div className="card-container">
-        <Card interactive={false} elevation={Elevation.ONE}>
-          {this.renderContent()}
-        </Card>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="card-container">
+      <Card interactive={false} elevation={Elevation.ONE}>
+        {renderContent()}
+      </Card>
+    </div>
+  );
+};
 
 const mapStateToProps = ({ auth, search, searchDetails }) => {
   return { auth, search, searchDetails };
