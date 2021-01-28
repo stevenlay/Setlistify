@@ -6,42 +6,14 @@ import ImportModal from "./ImportModal";
 
 import * as actions from "../actions";
 
-const Results = (props) => {
-  //TODO:
-
-  const renderModalContent = () => {
-    return "Are you sure you would like to import the Setlist?";
-  };
-
-  const renderActions = () => {
-    return (
-      <>
-        <button onClick={() => importSet} className="ui button primary">
-          Delete
-        </button>
-      </>
-    );
-  };
-
-  const renderImportModal = () => {
-    return <ImportModal />;
-  };
-
-  const importSet = async () => {
-    await props.importSetlist({
-      setlists: props.search.setlists.slice(0, 2),
-      artistName: props.searchDetails.artist.name,
-      artistSpotifyId: props.searchDetails.artist.id,
-    });
-  };
-
+const Results = ({ auth, search, searchDetails, importSetlist }) => {
   const canImportSetlist = () => {
     return (
-      props.auth &&
-      props.search &&
-      props.search.setlists &&
-      props.search.numArtists === 1 &&
-      props.searchDetails
+      auth &&
+      search &&
+      search.setlists &&
+      search.numArtists === 1 &&
+      searchDetails
     );
   };
 
@@ -54,28 +26,28 @@ const Results = (props) => {
   };
 
   const renderWarning = () => {
-    if (props.search && props.search.numArtists > 1) {
+    if (search && search.numArtists > 1) {
       return "Too many different artists found from search. Please be more specific.";
     }
     return null;
   };
 
   const renderSetlists = () => {
-    if (!props.search) {
+    if (!search) {
       return renderGeneralWarning("No search found");
     }
 
-    if (props.search.error === 404) {
+    if (search.error === 404) {
       return renderGeneralWarning("No artist found");
     }
 
-    return props.search.setlists.map((setlist, index) => (
+    return search.setlists.map((setlist, index) => (
       <SetlistCard key={index} setlist={setlist} details={true} />
     ));
   };
 
   const renderContent = () => {
-    switch (props.search) {
+    switch (search) {
       case false:
         return (
           <p className="alert">Search an artist and see the results here!</p>
