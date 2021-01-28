@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Card } from "@blueprintjs/core";
+import { Grid, Button, Modal } from "semantic-ui-react";
 import SetlistCard from "./SetlistCard";
 import * as actions from "../actions";
 
@@ -22,20 +24,23 @@ class ImportModal extends Component {
   };
 
   //TODO: on successful request, then deduct a credit
-  importSetlist = () => {
+  importSetlist = async () => {
     this.loading();
+    const res = await this.props.importSetlist({
+      setlists: this.props.search.nonEmptySetlists.slice(0, 2),
+      artistName: this.props.searchDetails.artist.name,
+      artistSpotifyId: this.props.searchDetails.artist.id,
+    });
 
-    console.log(this.props.search.nonEmptySetlists);
     console.log({
       setlists: this.props.search.nonEmptySetlists.slice(0, 2),
       artistName: this.props.searchDetails.artist.name,
       artistSpotifyId: this.props.searchDetails.artist.id,
     });
-    setTimeout(() => {
-      this.finished();
-      this.success();
-      // this.props.handleCredit();
-    }, 2000);
+
+    this.finished();
+    this.success();
+    await this.props.handleCredit();
   };
 
   renderSetlists = (setlist) => {
@@ -56,7 +61,15 @@ class ImportModal extends Component {
     const color = success ? "green" : "red";
     return (
       <>
-        <div>Modal</div>
+        <Modal.Header>{header}</Modal.Header>
+        <Modal.Content className="header">
+          <div>{message}</div>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color={color} onClick={this.close}>
+            Finish
+          </Button>
+        </Modal.Actions>
       </>
     );
   };
@@ -65,7 +78,7 @@ class ImportModal extends Component {
     return (
       <>
         {" "}
-        <div>
+        <Modal.Header>
           Would you like to import the setlist for{" "}
           {this.props.searchDetails.artist.name}?
           {!this.canImportSetlist() && (
@@ -78,32 +91,32 @@ class ImportModal extends Component {
               You have enough credits to import this setlist.
             </p>
           )}
-        </div>
-        <div>
+        </Modal.Header>
+        <Modal.Content>
           <div>
             <h1 className="header">Most recent sets: </h1>
-            <div>
+            <Grid className="grid">
               {this.renderSetlists(
                 this.props.search.nonEmptySetlists.slice(0, 2)
               )}
               {this.state.loading && (
                 <div className="loader-card-container">
-                  <p>
+                  <Card>
                     <div className="ui active dimmer">
                       <div className="ui text loader">Loading</div>
                     </div>
-                  </p>
+                  </Card>
                 </div>
               )}
-            </div>
+            </Grid>
           </div>
-        </div>
-        <div>
-          <p color="black" onClick={this.close}>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color="red" onClick={this.close}>
             No
-          </p>
+          </Button>
           {this.canImportSetlist() && (
-            <p
+            <Button
               positive
               icon="checkmark"
               labelPosition="right"
@@ -112,14 +125,14 @@ class ImportModal extends Component {
             />
           )}
           {!this.canImportSetlist() && (
-            <p
+            <Button
               icon="checkmark"
               labelPosition="right"
               content="Buy more credits"
               onClick={this.close}
             />
           )}
-        </div>
+        </Modal.Actions>
       </>
     );
   };
@@ -131,13 +144,13 @@ class ImportModal extends Component {
       <div>
         {
           <>
-            <p onClick={this.show(true)}>Import Setlist</p>
+            <Button onClick={this.show(true)}>Import Setlist</Button>
 
-            <p
+            <Modal
               dimmer={dimmer}
               open={open}
               onClose={this.close}
-              centered="false"
+              centered={false}
             >
               {done &&
                 success &&
@@ -155,7 +168,7 @@ class ImportModal extends Component {
                 )}
 
               {!done && this.renderDialogModal()}
-            </p>
+            </Modal>
           </>
         }
       </div>
@@ -163,8 +176,8 @@ class ImportModal extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, search, searchDetails }) => {
-  return { auth, search, searchDetails };
+const mapStateToProps = ({ auth, search, searchDetails, importSetlist }) => {
+  return { auth, search, searchDetails, importSetlist };
 };
 
 export default connect(mapStateToProps, actions)(ImportModal);

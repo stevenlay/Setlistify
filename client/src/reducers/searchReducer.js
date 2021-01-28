@@ -1,4 +1,5 @@
 import { FETCH_ARTIST } from "../actions/types";
+
 const searchReducer = (state = false, action) => {
   switch (action.type) {
     case FETCH_ARTIST:

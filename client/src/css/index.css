@@ -69,6 +69,7 @@ code {
 
 .header {
   text-align: center;
+  margin-bottom: 1.5em;
 }
 
 .rowC {
@@ -93,4 +94,8 @@ code {
   font-size: 1.5em;
   text-decoration: none;
   color: black;
+}
+
+.action {
+  padding: 0em;
 }
