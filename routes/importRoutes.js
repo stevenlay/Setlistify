@@ -14,9 +14,9 @@ module.exports = (app) => {
         Authorization: `Bearer ${req.user.accessToken}`,
       },
     };
-
+    // console.log("Search info", req.body.search);
     // Get albums from the artist
-    const artistId = req.body.search.artistSpotifyId;
+    const artistId = req.body.search.artist.id;
     const albumIds = await getAlbumIds(artistId, options);
 
     let albumIdsString = "";
@@ -36,7 +36,7 @@ module.exports = (app) => {
       })
     );
 
-    const artist = req.body.search.artistName;
+    const artist = req.body.search.artist.name;
     const body = {
       name: `Setlist for ${artist}`,
       description: "Most likely songs for upcoming concerts",
@@ -44,8 +44,12 @@ module.exports = (app) => {
     };
 
     let err = false;
-    const artistRes = await axios
-      .post(`https://api.spotify.com/v1/playlists`, body, options)
+    const playlistRes = await axios
+      .post(
+        `https://api.spotify.com/v1/users/${req.user.spotifyId}/playlists`,
+        body,
+        options
+      )
       .catch(function (error) {
         if (error.response) {
           err = error.response.status;
@@ -56,11 +60,10 @@ module.exports = (app) => {
         }
       });
 
-    console.log(err);
     if (err) return res.send({ error: err });
 
-    console.log(artistRes);
-    res.send({ response: artistRes });
+    console.log(playlistRes.data);
+    res.send({ playlist: playlistRes.data });
   });
 };
 

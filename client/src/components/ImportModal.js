@@ -24,20 +24,23 @@ class ImportModal extends Component {
   };
 
   //TODO: on successful request, then deduct a credit
-  importSetlist = () => {
+  importSetlist = async () => {
     this.loading();
+    const res = await this.props.importSetlist({
+      setlists: this.props.search.nonEmptySetlists.slice(0, 2),
+      artistName: this.props.searchDetails.artist.name,
+      artistSpotifyId: this.props.searchDetails.artist.id,
+    });
 
-    console.log(this.props.search.nonEmptySetlists);
     console.log({
       setlists: this.props.search.nonEmptySetlists.slice(0, 2),
       artistName: this.props.searchDetails.artist.name,
       artistSpotifyId: this.props.searchDetails.artist.id,
     });
-    setTimeout(() => {
-      this.finished();
-      this.success();
-      // this.props.handleCredit();
-    }, 2000);
+
+    this.finished();
+    this.success();
+    await this.props.handleCredit();
   };
 
   renderSetlists = (setlist) => {
@@ -173,8 +176,8 @@ class ImportModal extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, search, searchDetails }) => {
-  return { auth, search, searchDetails };
+const mapStateToProps = ({ auth, search, searchDetails, importSetlist }) => {
+  return { auth, search, searchDetails, importSetlist };
 };
 
 export default connect(mapStateToProps, actions)(ImportModal);
