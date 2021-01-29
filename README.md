@@ -39,9 +39,24 @@ module.exports = {
 };
 ```
 
-Create and fill the dev.js file with the appropriate keys and run with ```npm run dev``` to start the server and client.
+Create and fill the dev.js file with the appropriate keys and run with ```npm run dev``` to start the server and client. To add credits: login and use the test mode credentials of: any email, card number - ```4242 4242 4242 4242```, any future date, any CVC.
 
 ## Screenshots
 
-TODO
-###
+### Home 
+![Home](screenshots/Home.png)
+
+### Spotify Login
+![Access](screenshots/Access.png)
+
+### Adding Credits
+![Credits](screenshots/Credits.png)
+
+### Searching for an Artist
+![Search](screenshots/Search.png)
+
+### Recent Setlists
+![RecentSets](screenshots/RecentSets.png)
+
+### Creating a Spotify Playlist
+![Success](screenshots/Success.png)
