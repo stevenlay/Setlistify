@@ -26,21 +26,17 @@ class ImportModal extends Component {
   //TODO: on successful request, then deduct a credit
   importSetlist = async () => {
     this.loading();
-    const res = await this.props.importSetlist({
+    const searchBody = {
       setlists: this.props.search.nonEmptySetlists.slice(0, 2),
       artistName: this.props.searchDetails.artist.name,
       artistSpotifyId: this.props.searchDetails.artist.id,
-    });
-
-    console.log({
-      setlists: this.props.search.nonEmptySetlists.slice(0, 2),
-      artistName: this.props.searchDetails.artist.name,
-      artistSpotifyId: this.props.searchDetails.artist.id,
-    });
-
+    };
+    await this.props.importSetlist(searchBody);
+    if (this.props.playlist && this.props.playlist.playlistUrl) {
+      this.success();
+      //   await this.props.handleCredit();
+    }
     this.finished();
-    this.success();
-    await this.props.handleCredit();
   };
 
   renderSetlists = (setlist) => {
@@ -77,7 +73,6 @@ class ImportModal extends Component {
   renderDialogModal = () => {
     return (
       <>
-        {" "}
         <Modal.Header>
           Would you like to import the setlist for{" "}
           {this.props.searchDetails.artist.name}?
@@ -94,7 +89,7 @@ class ImportModal extends Component {
         </Modal.Header>
         <Modal.Content>
           <div>
-            <h1 className="header">Most recent sets: </h1>
+            <h1 className="header">Most Recent Sets</h1>
             <Grid className="grid">
               {this.renderSetlists(
                 this.props.search.nonEmptySetlists.slice(0, 2)
@@ -144,7 +139,9 @@ class ImportModal extends Component {
       <div>
         {
           <>
-            <Button onClick={this.show(true)}>Import Setlist</Button>
+            <Button positive onClick={this.show(true)}>
+              Import Setlist
+            </Button>
 
             <Modal
               dimmer={dimmer}
@@ -156,7 +153,14 @@ class ImportModal extends Component {
                 success &&
                 this.renderDoneModal(
                   "Finished Importing",
-                  "Check your Spotify account for the playlist!",
+                  [
+                    <div>Check your Spotify account for the playlist!</div>,
+                    <div>
+                      <a href={this.props.playlist.playlistUrl}>
+                        Click to go to Playlist
+                      </a>
+                    </div>,
+                  ],
                   true
                 )}
 
@@ -176,8 +180,14 @@ class ImportModal extends Component {
   }
 }
 
-const mapStateToProps = ({ auth, search, searchDetails, importSetlist }) => {
-  return { auth, search, searchDetails, importSetlist };
+const mapStateToProps = ({
+  auth,
+  search,
+  searchDetails,
+  playlist,
+  importSetlist,
+}) => {
+  return { auth, search, searchDetails, playlist, importSetlist };
 };
 
 export default connect(mapStateToProps, actions)(ImportModal);

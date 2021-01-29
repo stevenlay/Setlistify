@@ -1,4 +1,5 @@
 const axios = require("axios");
+const querystring = require("querystring");
 const util = require("../utils/helper");
 const requireLogin = require("../middlewares/requireLogin");
 
@@ -14,9 +15,10 @@ module.exports = (app) => {
         Authorization: `Bearer ${req.user.accessToken}`,
       },
     };
-    // console.log("Search info", req.body.search);
+
+    let url = "";
     // Get albums from the artist
-    const artistId = req.body.search.artist.id;
+    const artistId = req.body.search.artistSpotifyId;
     const albumIds = await getAlbumIds(artistId, options);
 
     let albumIdsString = "";
@@ -30,26 +32,51 @@ module.exports = (app) => {
       albumIdsString,
       options
     );
-    console.log(
-      albumAndTracksRes.map((album) => {
-        return album.album_tracks;
-      })
-    );
 
-    const artist = req.body.search.artist.name;
-    const body = {
+    // get unique songs from setlists
+    let songs = new Set();
+    const setlists = req.body.search.setlists;
+    for (const setlist of setlists) {
+      for (const song of setlist.songs) {
+        songs = new Set([...songs, ...song.name.split("/")]);
+      }
+    }
+
+    // create a master list of songs and their id from Spotify
+    const formattedTrackAndIds = albumAndTracksRes.map((album) => {
+      return album.album_tracks;
+    });
+    const songMap = new Map();
+    for (const album of formattedTrackAndIds) {
+      for (const song of album) {
+        const songName = util.trim(song.name.split("(")[0]);
+        const songId = song.id;
+        if (!songMap.has(songName)) {
+          songMap.set(songName, songId);
+        }
+      }
+    }
+
+    // iterate through songs set and add the id found to track ids
+    const trackIds = [];
+    for (const song of songs) {
+      if (songMap.has(song)) {
+        trackIds.push(`spotify:track:${songMap.get(song)}`);
+      }
+    }
+
+    //create playlist
+    const artist = req.body.search.artistName;
+    let body = {
       name: `Setlist for ${artist}`,
       description: "Most likely songs for upcoming concerts",
       public: false,
     };
 
     let err = false;
+    url = `https://api.spotify.com/v1/users/${req.user.spotifyId}/playlists`;
     const playlistRes = await axios
-      .post(
-        `https://api.spotify.com/v1/users/${req.user.spotifyId}/playlists`,
-        body,
-        options
-      )
+      .post(url, body, options)
       .catch(function (error) {
         if (error.response) {
           err = error.response.status;
@@ -59,11 +86,28 @@ module.exports = (app) => {
           err = error.message;
         }
       });
-
     if (err) return res.send({ error: err });
 
-    console.log(playlistRes.data);
-    res.send({ playlist: playlistRes.data });
+    const playlistId = playlistRes.data.id;
+    const playlistUrl = playlistRes.data.external_urls.spotify;
+
+    // add tracks to playlist using the playlist id
+    body = {
+      uris: trackIds,
+    };
+    url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks?`;
+    await axios.post(url, body, options).catch(function (error) {
+      if (error.response) {
+        err = error.response.status;
+      } else if (error.request) {
+        err = error.request;
+      } else {
+        err = error.message;
+      }
+    });
+    if (err) return res.send({ error: err });
+
+    res.send({ playlistUrl });
   });
 };
 
@@ -80,7 +124,6 @@ getAlbumIds = async (artistId, options) => {
         err = error.message;
       }
     });
-  if (err) return res.send({ error: err });
 
   const albumIds = albumRes.data.items.map((album) => {
     return album.id;

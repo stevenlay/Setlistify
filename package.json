@@ -30,6 +30,7 @@
     "mongoose": "^5.11.13",
     "passport": "^0.4.1",
     "passport-spotify": "^2.0.0",
+    "querystring": "^0.2.0",
     "semantic-ui-css": "^2.4.1",
     "stripe": "^8.132.0"
   },

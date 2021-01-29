@@ -69,9 +69,17 @@ module.exports = (app) => {
           err = error.message;
         }
       });
+
+    if (err == 401) {
+      req.logout();
+      res.redirect("/");
+      return;
+    }
+
     const artistDetails = util.formatArtistDetails(
       artistRes.data.artists.items[0]
     );
+
     res.send({ artist: artistDetails });
   });
 };
