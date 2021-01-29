@@ -4,7 +4,7 @@ module.exports = (app) => {
   app.get(
     "/auth/spotify",
     passport.authenticate("spotify", {
-      scope: ["playlist-modify-private"],
+      scope: ["playlist-modify-public", "playlist-modify-private"],
       showDialog: true,
     })
   );

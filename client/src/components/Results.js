@@ -41,6 +41,10 @@ const Results = ({ auth, search, searchDetails, importSetlist }) => {
       return renderGeneralWarning("No artist found");
     }
 
+    if (search.error === 401) {
+      return renderGeneralWarning("Login expired. Please login.");
+    }
+
     return search.setlists.map((setlist, index) => (
       <SetlistCard key={index} setlist={setlist} details={true} />
     ));

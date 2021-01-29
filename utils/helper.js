@@ -50,4 +50,10 @@ module.exports = {
   filterSetlistData: (filterSetlistData = (setlists) => {
     return setlists.filter((setlist) => setlist.songs !== false);
   }),
+
+  trim: (trim = (str) => {
+    if (!str) return str;
+    str = str.replace(/^\s+/g, "");
+    return str.replace(/\s+$/g, "");
+  }),
 };

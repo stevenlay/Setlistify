@@ -35,8 +35,6 @@ export const fetchArtistDetails = (artist) => async (dispatch) => {
 };
 
 export const importSetlist = (search) => async (dispatch) => {
-  console.log(search);
-
   const res = await axios.post(`/api/import`, { search });
   dispatch({ type: IMPORT_SETLIST, payload: res.data });
 };
