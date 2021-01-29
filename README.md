@@ -44,19 +44,19 @@ Create and fill the dev.js file with the appropriate keys and run with ```npm ru
 ## Screenshots
 
 ### Home 
-![Home](screenshots/Home.png)
+![Home](screenshots/Home.PNG)
 
 ### Spotify Login
-![Access](screenshots/Access.png)
+![Access](screenshots/Access.PNG)
 
 ### Adding Credits
-![Credits](screenshots/Credits.png)
+![Credits](screenshots/Credits.PNG)
 
 ### Searching for an Artist
-![Search](screenshots/Search.png)
+![Search](screenshots/Search.PNG)
 
 ### Recent Setlists
-![RecentSets](screenshots/RecentSets.png)
+![RecentSets](screenshots/RecentSets.PNG)
 
 ### Creating a Spotify Playlist
-![Success](screenshots/Success.png)
+![Success](screenshots/Success.PNG)
